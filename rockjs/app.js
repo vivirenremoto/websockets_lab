@@ -11,7 +11,7 @@ app.get('/', function(request, response) {
   response.sendfile(__dirname + '/color.html');
 });
 
-app.get('/1QZeOVSbVfiU3Km73m_F9lSSnHnkMlxz8ilQJd5hipzQ', function(request, response) {
+app.get('/player', function(request, response) {
   response.sendfile(__dirname + '/index.html');
 });
 
