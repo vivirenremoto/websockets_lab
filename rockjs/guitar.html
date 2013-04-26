@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RockJS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>var socket = io.connect('/');</script>
+</head>
+<body>
+
+<style>
+body,html{height:100%}
+body{
+	background: black;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+</style>
+
+<div style="background-image:url('/static/utopicus.png');height:1px;width:1px;font-size:1;position:fixed;left:0;top:0"> </div>
+<div style="background-image:url('/static/guitar.png');height:1px;width:1px;font-size:1;position:fixed;left:0;top:0"> </div>
+
+<script>
+var guitar = false;
+
+$(function() {
+	socket.on('send_color', function(color) {
+		if( !guitar ) $('body').css('background-color',color);
+    });
+
+	socket.on('send_guitar', function(color) {
+		guitar = 1;
+		$('body').css('background-color','black').css('background-image',"url('/static/guitar.png')");
+    });
+    
+	socket.on('send_end', function() {
+		$('body').css('background-color','white').css('background-image',"url('/static/utopicus.png')");
+    });
+});
+</script>
+
+</body>
+</html>

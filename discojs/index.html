@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>discojs</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>var socket = io.connect('/');</script>
+
+</head>
+<body>
+
+
+<style>
+body,html{height:100%}
+body{
+	margin:0;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-image: url('/static/bg.jpg');
+}
+
+
+ul{list-style-type:none;margin:0;padding:0}
+li{margin:0;padding:20px;border-bottom:1px black solid;font-size:30px;font-size:50px}
+</style>
+
+<img id="qr" src="https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=http://discojs.herokuapp.com/controller/" style="position:fixed;right:0;top:0;z-index:99">
+
+<ul id="drinks"></ul>
+
+
+<script>
+
+function getContrast50(hexcolor){
+    return (parseInt(hexcolor, 16) > 0xffffff/2) ? 'black':'white';
+}
+
+
+$(function() {
+
+
+	socket.on('send_drink', function( item ) {
+
+		var font_color = getContrast50( item.color );
+	
+		var newDate = new Date();
+		$('#drinks').append('<li style="background-color:'+item.color+';color:'+font_color+'">'+item.drink+'</li>')
+    });
+
+
+
+
+
+});
+</script>
+
+
+
+</body>
+</html>

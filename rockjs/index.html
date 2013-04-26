@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RockJS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+	
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	
+	<script src="/socket.io/socket.io.js"></script>
+	<script>var socket = io.connect('/');</script>
+	
+</head>
+<body>
+
+<style>
+body,html{height:100%}
+body{
+	background: black;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+</style>
+
+<div style="background-image:url('/static/utopicus.png');height:1px;width:1px;font-size:1;position:fixed;left:0;top:0"> </div>
+<div style="background-image:url('/static/guitar.png');height:1px;width:1px;font-size:1;position:fixed;left:0;top:0"> </div>
+<div id="player_content"><audio id="player" src="static/track.mp3" controls>Content</audio></div>
+<span id="time"></span>
+
+
+
+<script>
+var color = previous_color = 'black';
+var seconds;
+var rand_interval;
+var get_rand = false;
+
+function sendColor(col){
+	if( previous_color != col ){
+		previous_color = col;
+		socket.emit('get_color', col );
+		console.log(col);
+	}
+}
+
+function get_random_color() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+}
+
+$(function() {
+	socket.on('send_color', function(color) {
+		$('body').css('background',color);
+    });
+    
+	socket.on('send_rand', function() {
+		rand_interval = setInterval(function(){
+			$('body').css('background', get_random_color() );
+		}, 300);
+    });
+    
+	socket.on('send_end', function() {
+		clearInterval(rand_interval);
+		$('body').css('background-color','white').css('background-image',"url('/static/utopicus.png')");
+    });
+
+    ///////////
+
+	setInterval(function(){
+	
+		seconds = parseInt( document.getElementById('player').currentTime );
+		$('#time').html( seconds );
+
+		if( seconds == 0 ){
+			previous_color = false;
+			color = 'black';	
+		}else if( seconds > 8 && seconds < 32 ) color = ( seconds % 2 == 0 ) ? 'red' : 'black';
+		else if( seconds > 31 && seconds < 47 ) color = ( seconds % 2 == 0 ) ? 'blue' : 'black';
+		else if( seconds > 46 && seconds < 52 ) color = ( seconds % 2 == 0 ) ? 'yellow' : 'black';
+
+		if( seconds == 52 && !get_rand ){
+			socket.emit('get_guitar');
+			get_rand = true;
+			socket.emit('get_rand');
+		}
+
+		
+		if( seconds == 72 ){
+			socket.emit('get_end');
+		}else{
+			sendColor(color);
+		}
+
+	},1);
+
+});
+</script>
+
+</body>
+</html>

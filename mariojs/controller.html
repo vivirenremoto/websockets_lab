@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Controller</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>var socket = io.connect('/');</script>
+</head>
+<body>
+
+<input value="&larr;" id="btn_left" type="button" style="background:#fff;font-weight:bold;-webkit-appearance:none;height:100%;position:fixed;width:50%;left:0;top:0;bottom:0;font-size:150px;padding:0;text-align:center">
+<input value="&rarr;" id="btn_right" type="button" style="background:#fff;font-weight:bold;-webkit-appearance:none;height:100%;position:fixed;width:50%;right:0;top:0;bottom:0;font-size:150px;padding:0;text-align:center">
+
+<script>
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
+
+$(function() {
+
+	socket.on('connect', function () {		
+		socket.emit('get_connection', getURLParameter('id') );
+	});
+	
+	////////
+
+	$('#btn_left').bind("touchstart", function(e) {
+		socket.emit('move_left', getURLParameter('id') );
+		$('#btn_left').css('background','green').css('color','white');
+	});
+	
+	$('#btn_right').bind("touchstart", function(e) {
+		socket.emit('move_right', getURLParameter('id') );
+		$('#btn_right').css('background','green').css('color','white');
+	});
+	
+	////////
+	
+	$('#btn_left').bind("touchend", function(e) {
+		socket.emit('move_stop', getURLParameter('id') );
+		$('#btn_left').css('background','#fff').css('color','black');
+	});
+	
+	$('#btn_right').bind("touchend", function(e) {
+		socket.emit('move_stop', getURLParameter('id') );
+		$('#btn_right').css('background','#fff').css('color','black');
+	});
+
+});
+</script>
+
+
+
+</body>
+</html>

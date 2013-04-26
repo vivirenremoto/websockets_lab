@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Controller</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>var socket = io.connect('/');</script>
+	
+</head>
+<body>
+
+
+<input value="☀" id="btn_lights" type="button" style="background:#fff;font-weight:bold;-webkit-appearance:none;height:100%;position:fixed;width:33%;left:0;top:0;bottom:0;font-size:100px;padding:0;text-align:center">
+<input value="♬" id="btn_music" type="button" style="background:#fff;font-weight:bold;-webkit-appearance:none;height:100%;position:fixed;left:30%;right:30%;top:0;bottom:0;font-size:100px;padding:0;text-align:center">
+<input value="♨" id="btn_temperature" type="button" style="background:#fff;font-weight:bold;-webkit-appearance:none;height:100%;position:fixed;width:33%;right:0;top:0;bottom:0;font-size:100px;padding:0;text-align:center">
+
+
+<script>
+var lights = 0;
+var music = 0;
+var temperature = 0;
+
+$(function() {
+
+	socket.on('connect', function () {		
+		socket.emit('get_connection' );
+	});
+	
+	//////////
+
+	$('#btn_lights').bind("touchstart", function(e) {
+		lights = lights ? 0 : 1;
+		socket.emit('get_lights', lights );
+		
+		if( lights == 1 ) $('#btn_lights').css('background','green').css('color','#fff');
+		else $('#btn_lights').css('background','#fff').css('color','#000');
+	});
+	
+	$('#btn_music').bind("touchstart", function(e) {
+		music = music ? 0 : 1;
+		socket.emit('get_music', music );
+		
+		if( music == 1 ) $('#btn_music').css('background','green').css('color','#fff');
+		else $('#btn_music').css('background','#fff').css('color','#000');
+	});
+	
+	$('#btn_temperature').bind("touchstart", function(e) {
+		temperature = temperature ? 0 : 1;
+		socket.emit('get_temperature', temperature );
+		
+		if( temperature == 1 ) $('#btn_temperature').css('background','green').css('color','#fff');
+		else $('#btn_temperature').css('background','#fff').css('color','#000');
+	});
+
+});
+</script>
+
+
+</body>
+</html>

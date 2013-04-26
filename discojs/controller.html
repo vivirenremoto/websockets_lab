@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Controller</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>var socket = io.connect('/');</script>
+</head>
+<body>
+
+<div id="color" style="position:fixed;width:50%;top:0;left:0;height:100%">&nbsp;</div>
+
+<input value="whisky" type="button" style="background:none;font-size:100px;font-weight:bold;-webkit-appearance:none;position:fixed;width:100%;left:0;top:0;height:33%;padding:0;">
+<input value="ron" type="button" style="background:none;font-size:100px;font-weight:bold;-webkit-appearance:none;position:fixed;width:100%;left:0;top:30%;height:33%;padding:0;">
+<input value="mojito" type="button" style="background:none;font-size:100px;font-weight:bold;-webkit-appearance:none;position:fixed;width:100%;left:0;bottom:-1%;top:60%;padding:0;">
+
+<script>
+var color = get_random_color();
+
+function getContrast50(hexcolor){
+    return (parseInt(hexcolor, 16) > 0xffffff/2) ? 'black':'white';
+}
+
+function get_random_color() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+}
+
+$(function() {
+	$('input').css('background',color).css('color', getContrast50( color ) ).click(function() {
+		socket.emit('get_drink', color, $(this).val() );
+	});
+});
+</script>
+
+</body>
+</html>

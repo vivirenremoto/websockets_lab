@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MarioJS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<link href="http://miquelcamps.com/mario/main.css?v=12" rel="stylesheet">
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>var socket = io.connect('/');</script>
+	
+</head>
+<body class="grey">
+
+
+<style>
+body{background:#ccc}
+.grey {-webkit-filter: grayscale(100%);}
+</style>
+
+<div id="scroll">
+	<div class="box">
+		<b>SCANEAME</b>
+		Usa el móvil para moverte por las diferentes pantallas.
+		<img id="qr">
+	</div>
+	<div class="box">
+		<b>HOLA</b>
+		Esto es un experimento hecho con javascript por <a href="http://twitter.com/miquelcamps" target="_blank">@miquelcamps</a>, la idea es mostrar mi curriculum como si fuera un videojuego.<br><br>
+		Estoy buscando trabajo de desarrollador web frontend y/o apps de iPhone e iPad.
+		<div class="share"><br>
+			<div class="tw"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://miquelcamps.com/mario/" data-text="El curriculum mas friki que he visto!" data-via="miquelcamps" data-lang="es">Twittear</a></div>
+			<div class="fb"><div class="fb-like" data-href="http://miquelcamps.com/mario/" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false"></div></div>
+		</div>
+	</div>
+	<div class="box">
+		<b>EXPERIENCIA</b>
+		<a href="http://sindelantal.com" target="_blank">sindelantal.com</a><span class="date">2012ene - 2012oct</span><br><br>
+		<a href="http://nvivo.es" target="_blank">nvivo.es</a><span class="date">2008may - 2011dic</span><br><br>
+		<a href="http://www.inspirit.net" target="_blank">intercomgi</a><span class="date">2007dic - 2008may</span>
+	</div>
+	<div class="box">
+		<b>ESTUDIOS</b>
+		Imagina Formación<br>
+		<span class="date">2011</span>
+		Curso desarrollo apps iOS<br><br>
+		Tetuan Valley<span class="date">2010 - 2011</span><br><br>
+		FP DAI - IES Montilivi<span class="date">2005 - 2007</span><br><br>
+		Academia MecaCentre<span class="date">1997 - 2002</span>
+	</div>	
+	<div class="box">
+		<b>PORTAFOLIO APPS</b>
+		- <a href="http://topigames.com" target="_blank">Topigames</a> (ipad)<br><br>
+		- <a href="http://betabeers.com/freelance/" target="_blank">Betabeers Freelance</a> (iphone)<br><br>
+		- <a href="https://itunes.apple.com/es/app/epictrackin/id570513187" target="_blank">Epictrackin</a> (iphone)<br><br>
+		- <a href="https://itunes.apple.com/us/app/epicbuyer/id569452989" target="_blank">Epicbuyer</a> (iphone)<br><br>
+		- <a href="https://itunes.apple.com/es/app/talkdir/id446166930" target="_blank">Talkdir</a> (iphone)<br><br>
+		- <a href="https://itunes.apple.com/es/app/randeats/id445331881" target="_blank">Randeats</a> (iphone)
+	</div>
+	<div class="box">
+		<b>PORTAFOLIO WEBS</b>
+		- <a href="http://betabeers.com" target="_blank">Betabeers</a> (symfony2)<br><br>
+		- <a href="http://epicbuyer.com" target="_blank">Epicbuyer</a> (php)<br><br>
+		- <a href="http://epiclanding.com" target="_blank">Epiclanding</a> (php)<br><br>
+		- <a href="http://comil.us" target="_blank">Comil.us</a> (javascript)<br><br>
+		- <a href="http://migueldev.com/esp/" target="_blank">Situación gobierno españa</a> (php)
+	</div>
+	<div class="box">
+		<b>CHARLAS</b>
+		<a href="https://speakerdeck.com/u/betabeers/p/potencia-tu-web-con-apis-en-adwe-madrid" target="_blank">ADWE Madrid</a><span class="date">18/10/2011</span><br><br>
+		<a href="https://speakerdeck.com/u/betabeers/p/symfony-madrid-directorio-betabeers" target="_blank">Symfony Madrid</a><span class="date">01/03/2012</span><br><br>
+		<a href="https://speakerdeck.com/u/betabeers/p/apps-3" target="_blank">Ono Meeting Point</a><span class="date">19/06/2012</span><br><br>
+		<a href="https://speakerdeck.com/u/betabeers/p/to" target="_blank">NSCoder Madrid</a><span class="date">10/10/2012</span>
+	</div>
+	<div class="box">
+		<b>CONTACTO</b>
+		- <a href="mailto:hola@miquelcamps.com" target="_blank">hola@miquelcamps.com</a><br><br>
+		- <a href="http://twitter.com/miquelcamps" target="_blank">Twitter</a><br><br>
+		- <a href="http://es.linkedin.com/in/miquelcamps" target="_blank">Linkedin</a><br><br>
+		- <a href="http://miquelcamps.tumblr.com/" target="_blank">Tumblr</a><br><br>
+		Si te ha gustado este experimento,<br>
+		compartelo para ayudarme a buscar trabajo ¡gracias!
+		<div class="share"><br>
+			<div class="tw"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://miquelcamps.com/mario/" data-text="El curriculum mas friki que he visto!" data-via="miquelcamps" data-lang="es">Twittear</a></div>
+			<div class="fb"><div class="fb-like" data-href="http://miquelcamps.com/mario/" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false"></div></div>
+		</div>
+	</div>
+</div>
+
+
+<div id="floor">
+	<img id="mario" src="http://miquelcamps.com/mario/img/blank.png" alt="mario bros">
+</div>
+
+
+
+<script src="/static/game.js"></script>
+
+<script>
+var interval_left, interval_right;
+
+$(function() {
+
+	socket.on('connect', function () {
+		$('#qr').attr('src','https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=http://mariojs.herokuapp.com/controller/?id=' + socket.socket.sessionid);
+	});
+	
+	socket.on('send_connection', function() {
+		$("body").removeClass('grey').css('background','#6B88FF');
+		$('#qr').hide();
+    });
+    
+    ////////////////
+    
+	socket.on('send_left', function() {
+        direction = false;
+        interval_left = setInterval(function(){
+	        moveTo('left');
+	    },100);
+    });
+    
+	socket.on('send_right', function() {
+        direction = false;        
+        interval_right = setInterval(function(){
+	        moveTo('right');
+	    },100);
+    });
+        
+	socket.on('send_stop', function() {
+		clearInterval(interval_left);
+		clearInterval(interval_right);
+    });    
+
+});
+</script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=182629061816524";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+</body>
+</html>

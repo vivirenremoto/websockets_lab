@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HouseJS</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>var socket = io.connect('/');</script>
+	
+</head>
+<body>
+
+
+
+<div id="temperature" style="position:fixed;padding:20px;font-weight:bold;top:0;right:0;z-index:99;font-size:300px" class="blue">20ºC</div>
+<img id="qr" src="https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=http://housejs.herokuapp.com/controller/" style="position:fixed;left:0;top:0;z-index:99">
+<img id="photo" src="/static/bg.jpg" style="position:fixed;left:0;top:0;width:100%;height:100%" class="grey">
+<div id="sound" style="display:none"></div>
+
+
+<style>
+.grey {-webkit-filter: grayscale(100%);opacity: 0.3;}
+html,body{height:100%;background:#000}
+.red{color:red}
+.blue{color:blue}
+</style>
+ 
+<script>
+$(function() {
+	socket.on('send_connection', function(  ) {
+		//$('#sound').html('<audio src="/static/welcome.mp3" autoplay controls>Content</audio>');
+		$('#qr').hide();
+    });
+    
+    ///////////
+    
+	socket.on('send_lights', function( enable ) {
+		if( enable ){
+			$('#photo').removeClass('grey');
+		}else{
+			$('#photo').addClass('grey');
+		}
+    });
+    
+	socket.on('send_music', function( enable ) {
+		if( enable ){
+			$('#sound').html('<audio src="/static/chillout.mp3" autoplay loop controls>Content</audio>');
+		}else{
+			$('#sound').html('');
+		}
+	});
+    
+	socket.on('send_temperature', function( enable ) {
+		if( enable ){
+			$('#temperature').html('35ºC').removeClass('blue').addClass('red');
+		}else{
+			$('#temperature').html('20ºC').removeClass('red').addClass('blue');
+		}
+    });
+});
+</script>
+
+
+
+</body>
+</html>
