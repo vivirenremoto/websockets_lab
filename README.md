@@ -13,3 +13,7 @@ subir cada proyecto a heroku.com
 * git add .
 * git commit -m "info commit"
 * git push heroku master
+
+**video rockj**
+
+[![Video](http://img.youtube.com/vi/5W7vdec_U-U/0.jpg)](https://www.youtube.com/watch?v=5W7vdec_U-U "Video")
